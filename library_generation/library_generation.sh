@@ -40,10 +40,10 @@ if [ ! -f "$BASE_PATH/libmicroros/libmicroros.a" ]; then
         rm -rf geometry2
     popd
 
-    make -f libmicroros.mk
+    make -j 1 -f libmicroros.mk
 else
     # If exists just rebuild
-    make -f libmicroros.mk rebuild_metas
+    make -j 1 -f libmicroros.mk rebuild_metas
 fi
 
 ######## Fix include paths  ########
