@@ -11,7 +11,7 @@ typedef struct custom_transport_args {
     ULONG agent_ip_address;
     UINT agent_port;
 } custom_transport_args;
-#elif defined(SOCKETS_WRAPPER_H)
+#elif defined(TCP_SOCKETS_WRAPPER_H)
 typedef struct custom_transport_args {
     WIFINetworkParams_t * network_conf;
     const char agent_ip[16];
