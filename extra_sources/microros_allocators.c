@@ -66,22 +66,6 @@ void *pvPortRealloc(void *pointer, size_t xWantedSize)
     return ptr;
 }
 
-void *pvPortCalloc( size_t num, size_t xWantedSize )
-{
-    vTaskSuspendAll();
-
-    void *pointer = pvPortMalloc(num * xWantedSize);
-
-    if (pointer)
-    {
-        // Zero the memory
-        memset(pointer, 0, num * xWantedSize);
-    }
-
-  (void) xTaskResumeAll();
-  return pointer;
-}
-
 #endif
 
 void * microros_allocate(size_t size, void * state){
