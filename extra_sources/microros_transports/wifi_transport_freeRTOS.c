@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "sockets_wrapper.h"
+#include "tcp_sockets_wrapper.h"
 
 typedef enum {
   STATE_WAIT_FOR_SIZE = 0,
@@ -67,13 +67,13 @@ bool renesas_e2_transport_open(struct uxrCustomTransport * transport) {
     net_init = true;
 
     // Connect to agent TCP server
-    BaseType_t sock_err = Sockets_Connect(&xSocket,
+    BaseType_t sock_err = TCP_Sockets_Connect(&xSocket,
                            args->agent_ip,
                            args->agent_port,
                            10,
                            WRITE_TIMEOUT);
 
-    if (SOCKETS_ERROR_NONE != sock_err)
+    if (TCP_SOCKETS_ERRNO_NONE != sock_err)
     {
         return false;
     }
@@ -83,7 +83,7 @@ bool renesas_e2_transport_open(struct uxrCustomTransport * transport) {
 
 bool renesas_e2_transport_close(struct uxrCustomTransport * transport) {
     (void) transport;
-    Sockets_Disconnect(xSocket);
+    TCP_Sockets_Disconnect(xSocket);
 
     if (wifi_init && eWiFiSuccess == WIFI_Off())
     {
@@ -103,12 +103,12 @@ size_t renesas_e2_transport_write(struct uxrCustomTransport* transport, const ui
     static uint8_t buffer_size[2];
     buffer_size[0] = (uint8_t)(0x00FF & len);
     buffer_size[1] = (uint8_t)((0xFF00 & len) >> 8);
-    bytes_sent = Sockets_Send(xSocket, (const void *) &buffer_size[0], 2);
+    bytes_sent = TCP_Sockets_Send(xSocket, (const void *) &buffer_size[0], 2);
 
     // Then we send the payload
     if (bytes_sent == 2)
     {
-        bytes_sent = Sockets_Send(xSocket, (const void *) &buf[0], len);
+        bytes_sent = TCP_Sockets_Send(xSocket, (const void *) &buf[0], len);
 
         if (0 <= bytes_sent)
         {
@@ -168,7 +168,7 @@ void read_tcp_data(tcp_receiver_t * receiver) {
   switch(receiver->state)
   {
     case STATE_WAIT_FOR_SIZE:
-      bytes_received = Sockets_Recv(xSocket, (void*) &receiver->length_buffer[0], 2);
+      bytes_received = TCP_Sockets_Recv(xSocket, (void*) &receiver->length_buffer[0], 2);
       if (bytes_received >= 2)
       {
         receiver->message_size = (uint16_t)(receiver->length_buffer[0] | (receiver->length_buffer[1] << 8));
@@ -179,7 +179,7 @@ void read_tcp_data(tcp_receiver_t * receiver) {
 
     case STATE_WAIT_FOR_DATA:
       to_read = receiver->message_size - receiver->message_size_received;
-      bytes_received = Sockets_Recv(xSocket, (void*) &receiver->buffer[receiver->message_size_received], to_read);
+      bytes_received = TCP_Sockets_Recv(xSocket, (void*) &receiver->buffer[receiver->message_size_received], to_read);
       receiver->message_size_received += (uint16_t) bytes_received;
 
       if(receiver->message_size_received == receiver->message_size){
