@@ -5,7 +5,7 @@
 
 ## Renesas e2 studio installer
 
-- Download the e2 studio Linux AppImage from the  [Renesas Github repository](https://github.com/renesas/fsp/releases). For example, e2 studio installer for FSP version 4.4.0 can be downloaded here: [setup_fsp_v4_4_0_e2s_v2023-04.AppImage](https://github.com/renesas/fsp/releases/download/v4.4.0/setup_fsp_v4_4_0_e2s_v2023-04.AppImage)
+- Download the e2 studio Linux AppImage from the  [Renesas Github repository](https://github.com/renesas/fsp/releases). For example, e2 studio installer for FSP version 5.6.0 can be downloaded here: [setup_fsp_v5_6_0_e2s_v2024-10.xz.run](https://github.com/renesas/fsp/releases/download/v5.6.0/setup_fsp_v5_6_0_e2s_v2024-10.xz.run)
 - Perform a Quick Install, this will automatically include the latest FSP and GNU Arm Embedded Toolchain versions.
 
 ## Manual FSP Update
