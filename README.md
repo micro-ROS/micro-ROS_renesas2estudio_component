@@ -8,7 +8,7 @@
 
 This package eases the integration of [micro-ROS](https://micro.ros.org/) in a [Renesas e<sup>2</sup> studio](https://www.renesas.com/us/en/software-tool/e-studio). This components targets [Renesas RA family](https://www.renesas.com/us/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus), an ARM Cortex-M based MCU series, enabling a full micro-ROS compatibility for developing robotics and IoT applications.
 
-- [micro-ROS for Renesas e<sup>2</sup> studio](#micro-ros-for-renesas-esup2sup-studio)
+- [micro-ROS for Renesas e2 studio](#micro-ros-for-renesas-e2-studio)
   - [Supported platforms](#supported-platforms)
   - [Requirements](#requirements)
   - [Getting started](#getting-started)
@@ -30,7 +30,7 @@ This package eases the integration of [micro-ROS](https://micro.ros.org/) in a [
 ## Requirements
 
 - [Renesas e<sup>2</sup> studio](https://www.renesas.com/us/en/software-tool/e-studio) for Linux<sup>1</sup>
-- FSP v4.4.0 board packs for Renesas e<sup>2</sup> studio: [Details](fps_install_packs.md).
+- FSP v5.6.0 board packs for Renesas e<sup>2</sup> studio: [Details](fps_install_packs.md).
 - GNU Arm Embedded Toolchain v10.3.1.20210824 (Other compatible toolchain may work).
 - Install `rsync`: `apt -y install rsync`
 - [Install colcon](https://colcon.readthedocs.io/en/released/user/installation.html) and dependencies, for example with:
@@ -43,6 +43,7 @@ pip3 install colcon-common-extensions catkin_pkg lark-parser empy
 ## Getting started
 
 A ready-to-use example of this component can be found in [micro-ROS demos for Renesas e<sup>2</sup> studio repo](https://github.com/micro-ROS/micro_ros_renesas_demos).
+
 ## Using the micro-ROS Agent
 It is possible to use a **micro-ROS Agent** just by using this docker command:
 
@@ -108,16 +109,16 @@ cd ../micro_ros_renesas2estudio_component/library_generation && ./library_genera
 
    Configure `g_timer0` as an `r_agt`
       1. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-      2. Select `New Stack -> Driver -> Timers -> Timer, Low-Power (r_agt)`.
+      2. Select `New Stack -> Timer Low-Power (r_agt)`.
       3. Modify the clock period on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> General -> Period`) to `100`
-      3. Modify the clock period unit on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> General -> Period Unit`) to `Microseconds`
-      4. Modify the count source on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> General -> Count Source`) to `PCLKB`
-      5. Modify the interrupt callback on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> Interrupt -> Callback`) to `micro_ros_timer_cb`
-      6. Modify the underflow interrupt priority on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> Interrupt -> Underflow Interrupt Priority`) to `Priority 12`
+      4. Modify the clock period unit on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> General -> Period Unit`) to `Microseconds`
+      5. Modify the count source on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> General -> Count Source`) to `PCLKB`
+      6. Modify the interrupt callback on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> Interrupt -> Callback`) to `micro_ros_timer_cb`
+      7. Modify the underflow interrupt priority on the component properties (`Module g_timer0 Timer, Low-Power (r_agt) -> Interrupt -> Underflow Interrupt Priority`) to `Priority 12`
 
          ![image](.images/Timer_configuration.png)
 
-      7.  Save the modifications by clicking on `Generate Project Content`.
+      8.  Save the modifications by clicking on `Generate Project Content`.
 
    </details>
 
@@ -142,7 +143,7 @@ cd ../micro_ros_renesas2estudio_component/library_generation && ./library_genera
    Create and configure the micro-ROS FreeRTOS task:
 
       1. On the `configuration.xml` menu, go to the `Stacks` tab and create a new thread for micro-ROS.
-      2. Click on the created thread, then select `New Stack -> RTOS -> FreeRTOS Heap 4`.
+      2. Click on the created thread, then select `New Stack -> FreeRTOS Heap 4`.
       3. Configure the micro-ROS thread properties:
          1. Set the name of the thread entry function under `Thread -> Symbol` to `micro_ros_thread`.
          2. Set `Thread -> Stack size (bytes)` to 5000 B.
