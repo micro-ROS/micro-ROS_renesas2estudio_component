@@ -5,7 +5,7 @@
 
 Depending on which transport is used for micro-ROS specific configurations, the following should be done.
 
-- [micro-ROS transports for  Renesas e<sup>2</sup> studio](#micro-ros-transports-for--renesas-esup2sup-studio)
+- [micro-ROS transports for  Renesas e2 studio](#micro-ros-transports-for--renesas-e2-studio)
   - [USB-CDC transport](#usb-cdc-transport)
   - [Serial UART transport](#serial-uart-transport)
   - [UDP transport (FreeRTOS + TCP)](#udp-transport-freertos--tcp)
@@ -18,7 +18,7 @@ Depending on which transport is used for micro-ROS specific configurations, the 
       - `extra_sources/microros_transports/usb_transport.c`
       - `extra_sources/microros_transports/usb_descriptor.c`
 2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-3. Select `New Stack -> Middleware -> USB -> USB PCDC driver on r_usb_pcdc`.
+3. Select `New Stack -> USB PCDC driver on r_usb_pcdc`.
 4. Go to `Clocks` tab and configure `UCLK` clock to match 48MHz (Match the values on the highlighted boxes):
 
    ![image](.images/Configure_usb_clock.png)
@@ -35,7 +35,7 @@ The configuration of this transports is board dependant:
 1. Copy the following files to the source directory:
       - `extra_sources/microros_transports/uart_transport.c`
 2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-3. Select `New Stack -> Driver -> Connectivity -> r_src_uart`.
+3. Select `New Stack -> r_src_uart`.
 4. *Optional: in order to set P411 and P410 as Tx/Rx first disable SPI1*
 5. Go to the component properties and configure the Tx/Rx pinout:
 
@@ -51,7 +51,7 @@ The configuration of this transports is board dependant:
    1. Copy the following files to the source directory:
       - `extra_sources/microros_transports/uart_transport.c`
    2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-   3. Select `New Stack -> Driver -> Connectivity -> r_src_b_uart`.
+   3. Select `New Stack -> r_src_b_uart`.
    4. Go to `Clocks` tab and enable `SCISPICLK` clock.
 
       *Example clock configuration:*
@@ -73,12 +73,12 @@ The configuration of this transports is board dependant:
       - `extra_sources/microros_transports/udp_transport_freeRTOS.c`
 
 2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-3. Select `New Stack -> Networking -> FreeRTOS + TCP`.
+3. Select `New Stack -> FreeRTOS + TCP`.
 4. Configure the properties of the `FreeRTOS + TCP component`:
    1. `Common -> vApplicationIPNetworkEventHook` to `Disable`.
    2. `Common -> DHCP Register Hostname` to `Disable`.
    3. *Optional: Enable DHCP `Common -> Use DHCP` to `Enable`*.
-   
+
       *Note: If DHCP is disabled, the board network parameters can be configured on the transport source file `udp_transport_freeRTOS.c`*
 
    4. *Optional: Increase number of buffers avaliable to the IP stack on `Common -> Total number of avaliable network buffers`*.
@@ -112,7 +112,7 @@ The configuration of this transports is board dependant:
 1. Copy the following files to the source directory:
       - `extra_sources/microros_transports/udp_transport_threadX.c`
 2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-3. Select `New Stack -> Networking -> Azure RTOS NetX Duo DHCP IPv4 Client`.
+3. Select `New Stack -> Azure RTOS NetX Duo DHCP IPv4 Client`.
 4. Click on Add NetX Duo Network Driver and select `New -> NetX Duo Ethernet Driver (rm_netxduo_ether)`:
 5. Click on Add NetX Duo Packet Pool and select `Use -> g_packet_pool0 Azure RTOS NetX Duo Packet Pool Instance`:
 
@@ -139,8 +139,8 @@ The configuration of this transports is board dependant:
 
 ## TCP WIFI transport (AWS WiFi Sockets Wrapper - FreeRTOS)
 
-This transport supports Renesas [Wi-Fi-Pmod-Expansion-Board](https://www.renesas.com/eu/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus/wi-fi-pmod-expansion-board-80211bgn-24g-wi-fi-pmod-expansion-board) based on Silex SX-ULPGN module.  
-Support for other wifi modules can be added to the FSP as explained on chapter `4. Adding Support for New Wi-Fi module` of this document: 
+This transport supports Renesas [Wi-Fi-Pmod-Expansion-Board](https://www.renesas.com/eu/en/products/microcontrollers-microprocessors/ra-cortex-m-mcus/wi-fi-pmod-expansion-board-80211bgn-24g-wi-fi-pmod-expansion-board) based on Silex SX-ULPGN module.
+Support for other wifi modules can be added to the FSP as explained on chapter `4. Adding Support for New Wi-Fi module` of this document:
 [Getting Started with the Wi-Fi Modules on FSP](https://www.renesas.com/eu/en/document/apn/getting-started-wi-fi-modules-fsp)
 
  *Note: This configuration is valid for the connector PMOD1 (J26)*
@@ -222,7 +222,7 @@ Support for other wifi modules can be added to the FSP as explained on chapter `
 1. Copy the following files to the source directory:
       - `extra_sources/microros_transports/canfd_transport.c`
 2. Double click on the `configuration.xml` file of your project and go to the `Stacks` tab.
-3. Select `New Stack -> Driver -> Connectivity -> r_canfd`.
+3. Select `New Stack -> r_canfd`.
 4. Go to `Clocks` tab:
    1. Configure `CANFDCLK` clock to match 40 MHz.
    2. Make sure `PCLKA` clock value doubles value of `PCLKB`.
